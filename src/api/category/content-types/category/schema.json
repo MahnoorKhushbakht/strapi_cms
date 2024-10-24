@@ -32,10 +32,22 @@
     "highlight": {
       "type": "string"
     },
-    "bloggs": {
+    "foods": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::blogg.blogg",
+      "target": "api::food.food",
+      "mappedBy": "category"
+    },
+    "travels": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::travel.travel",
+      "mappedBy": "category"
+    },
+    "cosmetics": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cosmetic.cosmetic",
       "mappedBy": "category"
     }
   }

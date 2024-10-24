@@ -584,7 +584,7 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
   info: {
     singularName: 'blog';
     pluralName: 'blogs';
-    displayName: 'Cosmetic';
+    displayName: 'Blog';
     description: '';
   };
   options: {
@@ -628,7 +628,6 @@ export interface ApiBloggBlogg extends Struct.CollectionTypeSchema {
     subtitle: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     details: Schema.Attribute.Text;
-    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -657,7 +656,9 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.UID;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     highlight: Schema.Attribute.String;
-    bloggs: Schema.Attribute.Relation<'oneToMany', 'api::blogg.blogg'>;
+    foods: Schema.Attribute.Relation<'oneToMany', 'api::food.food'>;
+    travels: Schema.Attribute.Relation<'oneToMany', 'api::travel.travel'>;
+    cosmetics: Schema.Attribute.Relation<'oneToMany', 'api::cosmetic.cosmetic'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -669,6 +670,39 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::category.category'
+    >;
+  };
+}
+
+export interface ApiCosmeticCosmetic extends Struct.CollectionTypeSchema {
+  collectionName: 'cosmetics';
+  info: {
+    singularName: 'cosmetic';
+    pluralName: 'cosmetics';
+    displayName: 'Cosmetic';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    details: Schema.Attribute.Text;
+    subtitle: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    slug: Schema.Attribute.UID;
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::cosmetic.cosmetic'
     >;
   };
 }
@@ -690,10 +724,7 @@ export interface ApiFoodFood extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     subtitle: Schema.Attribute.String;
-    categories: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::category.category'
-    >;
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -751,6 +782,7 @@ export interface ApiTravelTravel extends Struct.CollectionTypeSchema {
     details: Schema.Attribute.Text;
     slug: Schema.Attribute.String;
     subtitle: Schema.Attribute.String;
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -1144,6 +1176,7 @@ declare module '@strapi/strapi' {
       'api::blog.blog': ApiBlogBlog;
       'api::blogg.blogg': ApiBloggBlogg;
       'api::category.category': ApiCategoryCategory;
+      'api::cosmetic.cosmetic': ApiCosmeticCosmetic;
       'api::food.food': ApiFoodFood;
       'api::global.global': ApiGlobalGlobal;
       'api::travel.travel': ApiTravelTravel;

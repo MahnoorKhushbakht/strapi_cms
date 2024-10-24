@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "blogs",
+  "collectionName": "cosmetics",
   "info": {
-    "singularName": "blog",
-    "pluralName": "blogs",
-    "displayName": "Blog",
+    "singularName": "cosmetic",
+    "pluralName": "cosmetics",
+    "displayName": "Cosmetic",
     "description": ""
   },
   "options": {
@@ -13,6 +13,12 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
+      "type": "string"
+    },
+    "details": {
+      "type": "text"
+    },
+    "subtitle": {
       "type": "string"
     },
     "image": {
@@ -29,16 +35,11 @@
     "slug": {
       "type": "uid"
     },
-    "details": {
-      "type": "text"
-    },
-    "subtitle": {
-      "type": "string"
-    },
-    "categories": {
+    "category": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::category.category"
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "cosmetics"
     }
   }
 }

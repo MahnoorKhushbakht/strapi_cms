@@ -32,12 +32,6 @@
     },
     "details": {
       "type": "text"
-    },
-    "category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::category.category",
-      "inversedBy": "bloggs"
     }
   }
 }
